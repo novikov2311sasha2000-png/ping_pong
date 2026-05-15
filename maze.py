@@ -56,6 +56,8 @@ player_2 = Player('Rect.png', 1100, 250, 56, 230, 5)
 
 fake_pong = gif_pygame.load('pong.png')
 pong = GameSprite('Rect.png', 850, 250, 54, 58, 5)
+speed_1 = 5
+speed_2 = 5
 
 fini = False
 game = True
@@ -77,10 +79,12 @@ while game:
 
         pong.reset()
         fake_pong.render(window, (pong.rect.x, pong.rect.y))
-        # pong.rect.x += pong.speed
-        # pong.rect.y += pong.speed
-        # if pong.colliderect(player_2.rect):
-        #     pong.speed *= -1
+        pong.rect.x += speed_1
+        pong.rect.y += speed_2
+        if pong.rect.colliderect(player.rect) or pong.rect.colliderect(player_2.rect):
+            speed_1 *= -1
+        if pong.rect.y <= 0 or pong.rect.y >= 650:
+            speed_2 *= -1
 
     display.update() 
     clock.tick(FPS) 
