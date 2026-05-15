@@ -1,5 +1,6 @@
 from pygame import *
 import gif_pygame
+from random import randint
 
 font.init()
 font = font.SysFont('Arial', 100)
@@ -83,6 +84,8 @@ while game:
         pong.rect.y += speed_2
         if pong.rect.colliderect(player.rect) or pong.rect.colliderect(player_2.rect):
             speed_1 *= -1
+            if randint(1, 2) == 1:
+                speed_2 *= -1
         if pong.rect.y <= 0 or pong.rect.y >= 650:
             speed_2 *= -1
 
