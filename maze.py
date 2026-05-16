@@ -8,17 +8,14 @@ right_win = font.render('Right WIN!', True, (255, 215, 0))
 left_win = font.render('Left WIN!', True, (255, 0, 0))
 
 window = display.set_mode((1500, 700)) # set_mode - устанавливает размеры окна
-display.set_caption('Догонялки') # set_caption - устанавливает название окна
+display.set_caption('Ping-pong') # set_caption - устанавливает название окна
 background = transform.scale(image.load('white.png'), (1500, 700)) # scale - подгоняет размеры картинки под нужные
-#создай 2 спрайта и размести их на сцене
-
-# player = transform.scale(image.load('Bug_pikcher.png'), (100, 100))
 
 # mixer.init()
-# mixer.music.load('forest.mp3') # загрузка файла с музыкой
+# mixer.music.load('Cu.ogg') # загрузка файла с музыкой
 # mixer.music.set_volume(0.1) # set_volume - делает звук тише (1 - максимум)
 # mixer.music.play(0) # play - проигрывает звук
-# kick = mixer.Sound('kick.ogg')
+# kick = mixer.Sound('Cu.ogg')
 
 clock = time.Clock() # Clock - класс для создания таймера
 FPS = 60
@@ -44,16 +41,16 @@ class Player(GameSprite):
         keys_pressed = key.get_pressed() # get_pressed - возвращает все нажатые клавиши
         if keys_pressed[up] and self.rect.y > 0:
             self.rect.y -= self.speed
-        if keys_pressed[down] and self.rect.y < 460:
+        if keys_pressed[down] and self.rect.y < 420:
             self.rect.y += self.speed    
         if not keys_pressed[up] and not keys_pressed[down]:
             pass
 
-fake_player = gif_pygame.load('ping_up.png')
-player = Player('Rect.png', 250, 250, 56, 230, 5)
+fake_player = gif_pygame.load('ping.png')
+player = Player('Rect.png', 250, 250, 45, 275, 5)
 
-fake_player_2 = gif_pygame.load('ping_up.png')
-player_2 = Player('Rect.png', 1100, 250, 56, 230, 5)
+fake_player_2 = gif_pygame.load('ping.png')
+player_2 = Player('Rect.png', 1100, 250, 45, 275, 5)
 
 fake_pong = gif_pygame.load('pong.png')
 pong = GameSprite('Rect.png', 850, 250, 54, 58, 5)
@@ -88,6 +85,13 @@ while game:
                 speed_2 *= -1
         if pong.rect.y <= 0 or pong.rect.y >= 650:
             speed_2 *= -1
+
+        if pong.rect.x < 150:
+            window.blit(left_win, (500, 250))
+            fini = True
+        elif pong.rect.x > 1350:
+            window.blit(right_win, (500, 250))
+            fini = True
 
     display.update() 
     clock.tick(FPS) 
